@@ -7,27 +7,13 @@ const genAI = apiBaseUrl
   ? new GoogleGenerativeAI(apiKey, apiBaseUrl)
   : new GoogleGenerativeAI(apiKey)
 
-export const startChatAndSendMessageStream = async(system, history: ChatMessage[], newMessage: string) => {
+export const startChatAndSendMessageStream = async(history: ChatMessage[], newMessage: string) => {
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
 
   const chat = model.startChat({
-    system: system.map(msg => ({
-      role: 'system',
-      message: '你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。',
-    })),
-    generationConfig: {
-      maxOutputTokens: 8000,
-    },
-    safetySettings: [
-      {category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE'},
-      {category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE'},
-      {category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE'},
-      {category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE'}
-      ],
-  })
     history: history.map(msg => ({
       role: msg.role,
-      parts: msg.parts.map(part => part.text).join(''), // Join parts into a single string
+      parts: msg.parts.map(part => part.text).join('你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。'), // Join parts into a single string
     })),
     generationConfig: {
       maxOutputTokens: 8000,
