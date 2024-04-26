@@ -16,7 +16,8 @@ export const startChatAndSendMessageStream = async (history: ChatMessage[], newM
   const chat = model.startChat({
     history: history.map(msg => ({
       role: msg.role,
-      parts: msg.parts.map(part => part.text).join(''), 
+      parts: msg.parts.map(part => part.text).join(''),
+      prompt: defaultPrompt, 
     })),
     generationConfig: {
       maxOutputTokens: 8000,
@@ -28,7 +29,7 @@ export const startChatAndSendMessageStream = async (history: ChatMessage[], newM
       {category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE'}
     ],
     // 将默认的 prompt 添加到历史记录中
-    prompt: defaultPrompt,
+    
   });
 
   // Use sendMessageStream for streaming responses
