@@ -13,7 +13,7 @@ export const startChatAndSendMessageStream = async(history: ChatMessage[], newMe
   const chat = model.startChat({
     history: history.map(msg => ({
       role: msg.role,
-      parts: msg.parts.map(part => part.text).join('你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。'), // Join parts into a single string
+      parts: '你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。' + msg.parts.map(part => part.text).join(''), // Join parts into a single string
     })),
     generationConfig: {
       maxOutputTokens: 8000,
