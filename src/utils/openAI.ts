@@ -12,7 +12,7 @@ export const startChatAndSendMessageStream = async(system, history: ChatMessage[
 
   const chat = model.startChat({
     system: system.map(msg => ({
-      role: system,
+      role: 'system',
       message: '你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。',
     })),
     generationConfig: {
