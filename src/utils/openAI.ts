@@ -15,6 +15,9 @@ export const startChatAndSendMessageStream = async(system, history: ChatMessage[
       role: system,
       message: '你是民用机场环境监控系统保护区数据查询AI，你不是Gemini，工程师会输入一个点的坐标，你需要说明这个坐标具体的位置和规定。',
     })),
+    generationConfig: {
+      maxOutputTokens: 8000,
+    },
     safetySettings: [
       {category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE'},
       {category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE'},
